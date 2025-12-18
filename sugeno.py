@@ -1,7 +1,7 @@
 # Approximation task
 
-from ..statements.fuzzyset import FuzzyTriangle
-from ..statements.statement import FuzzyStatement
+from statements.fuzzyset import FuzzyTriangle
+from statements.statement import FuzzyStatement
 
 
 class Rule:
