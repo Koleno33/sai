@@ -134,3 +134,54 @@ class FuzzyTriangle:
         return validity
 
 
+class FuzzyTrapezoid:
+    def __init__(self, statements: list['FuzzyStatement']):
+        if len(statements) != 3:
+            raise Exception("Задана не трапеция")
+        count_one, count_zero = 0, 0
+        self.__statements = list()
+        for s in statements:
+            if s.validity == 1:
+                self.__statements.append(s)
+                count_one += 1
+            elif s.validity == 0:
+                self.__statements.append(s)
+                count_zero += 1
+        if count_one > 3 or count_zero > 3:
+            raise Exception("Неверно задана трапеция")
+        self.__statements.sort(key=lambda x: x.value)
+        self.b1 = self.__statements[0]
+        self.t1 = self.__statements[1]
+        self.t2 = self.__statements[2]
+        self.b2 = self.__statements[3]
+        print("Левая нижняя", self.b1)
+        print("Левая верхняя", self.t1)
+        print("Правая верхняя", self.t2)
+        print("Правая нижняя", self.b2)
+        print()
+
+    def resolve(self, value):
+        validity = 0
+
+        if value >= self.t1.value and value <= self.t2.value:
+            return 1.0
+        elif value <= self.b2.value:
+            if self.b2.validity == 1.0:
+                return 1.0
+            k = 1 / (self.t2.value - self.b2.value)
+            b = -k * self.b2.value
+        elif value >= self.b1.value:
+            if self.b2.validity == 1.0:
+                return 1.0
+            k = 1 / (self.t1.value - self.b1.value)
+            b = -k * self.b1.value
+        else:
+            return 0.0
+
+        print("found", value, "between", self.b1.value, "and", self.b2.value)
+
+        print("k = ", k)
+        print("b = ", b)
+        validity = k * value + b
+        return validity
+
