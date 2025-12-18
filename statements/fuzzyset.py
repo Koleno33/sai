@@ -104,23 +104,23 @@ class FuzzyTriangle:
         self.b1 = self.__statements[0]
         self.t = self.__statements[1]
         self.b2 = self.__statements[2]
-        print("Левая", self.b1)
-        print("Средняя", self.t)
-        print("Правая", self.b2)
-        print()
+        # print("Левая", self.b1)
+        # print("Средняя", self.t)
+        # print("Правая", self.b2)
+        # print()
 
     def resolve(self, value):
         validity = 0
         if value < self.b1.value or value > self.b2.value:
             #raise Exception("Точка вне границ заданного треугольника")
             return validity
-        print("found", value, "between", self.b1.value, "and", self.b2.value)
+        # print("found", value, "between", self.b1.value, "and", self.b2.value)
         # k = ( self.b1.validity / self.b1.value - self.t.validity ) / ( 1 + self.b2.validity )
         # b = self.t.validity - k * self.b2.value
         if value >= self.t.value:
             if self.b2.validity == 1.0:
                 return 1.0
-            print("b2 validity", self.b2.validity)
+            # print("b2 validity", self.b2.validity)
             k = 1 / (self.t.value - self.b2.value)
             b = -k * self.b2.value
         else:
@@ -128,8 +128,8 @@ class FuzzyTriangle:
                 return 1.0
             k = 1 / (self.t.value - self.b1.value)
             b = -k * self.b1.value
-        print("k = ", k)
-        print("b = ", b)
+        # print("k = ", k)
+        # print("b = ", b)
         validity = k * value + b
         return validity
 
@@ -154,11 +154,11 @@ class FuzzyTrapezoid:
         self.t1 = self.__statements[1]
         self.t2 = self.__statements[2]
         self.b2 = self.__statements[3]
-        print("Левая нижняя", self.b1)
-        print("Левая верхняя", self.t1)
-        print("Правая верхняя", self.t2)
-        print("Правая нижняя", self.b2)
-        print()
+        # print("Левая нижняя", self.b1)
+        # print("Левая верхняя", self.t1)
+        # print("Правая верхняя", self.t2)
+        # print("Правая нижняя", self.b2)
+        # print()
 
     def resolve(self, value):
         validity = 0
@@ -178,10 +178,10 @@ class FuzzyTrapezoid:
         else:
             return 0.0
 
-        print("found", value, "between", self.b1.value, "and", self.b2.value)
+        # print("found", value, "between", self.b1.value, "and", self.b2.value)
 
-        print("k = ", k)
-        print("b = ", b)
+        # print("k = ", k)
+        # print("b = ", b)
         validity = k * value + b
         return validity
 
